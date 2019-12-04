@@ -17,5 +17,12 @@ export interface Member {
   created: string
   edited: string
   url: string
+};
+
+export interface PeopleRequest {
+  count: string,
+  next: string,
+  previous: string,
+  results: [Member]
 }
 
