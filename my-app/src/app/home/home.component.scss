@@ -1,0 +1,19 @@
+.container{
+  width: 80vh;
+  height: 70vh;
+  background-color: #ffffff;
+  padding: 15px;
+
+  .form-control{
+    display: flex;
+
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+}
