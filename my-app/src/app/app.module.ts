@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { DetailsComponent } from './details/details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-import {MatProgressSpinnerModule, MatSortModule, MatTableModule} from '@angular/material';
+import {MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatTableModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
@@ -25,6 +25,8 @@ import {HttpClientModule} from '@angular/common/http';
     MatTableModule,
     MatSortModule,
     MatProgressSpinnerModule,
+    MatInputModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

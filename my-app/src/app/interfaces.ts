@@ -44,3 +44,11 @@ export interface Planet {
   url: string;
 }
 
+
+export interface PlanetRequest {
+  count: string;
+  next: string;
+  previous: string;
+  results: Planet[];
+}
+
