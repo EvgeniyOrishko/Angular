@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import {MatIconModule, MatInputModule, MatProgressSpinnerModule, MatSortModule, MatTableModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import { ApiService } from './api.service';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatInputModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [ApiService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

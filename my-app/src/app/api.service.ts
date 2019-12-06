@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import {PlanetRequest} from './interfaces';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
+
 export class ApiService {
-  constructor(private http: HttpClient) {}
 
+  apiUrl = 'https://swapi.co/api';
+
+  constructor( private http: HttpClient) { }
 
   fetchByUrl(path: string): Observable<any> {
-    return this.http.get(path);
+    return this.http.get(`${this.apiUrl}/${path}`);
   }
 
-  fetchPr( path: string ) {
+  public fetchPr( path: string ) {
     return this.http
       .get(path)
       .toPromise()
@@ -22,45 +23,16 @@ export class ApiService {
       .catch((err) => Promise.reject(err));
   }
 
-  fetchAllPlanets(){
-
-      return Promise.all(
-        [1,2,3,4,5,6,7].map( item => {
-          return this.fetchPr( 'https://swapi.co/api/planets/?page=' + item )
-            .then( data => {
-              return data.results;})
-            .catch( () => item );
-        }))
-        .then(data => {
-          console.error( 'PLANETS', data )
-
-          // data.forEach( planets => planets.forEach( (planet : Planet) =>  this.planets[ planet.url ] = planet  ) );
-
-          return data;
-          // this.getAllPeoples();
-
-        })
-        .catch(function(err) {
-          console.log(err.message); // some coding error in handling happened
-        });
+  fetchAllByParams( list, path ) {
+    return Promise.all(
+      list.map( page => {
+        return this.fetchPr( `${this.apiUrl}/${path}/?page=${page}`)
+          .then( (data: PlanetRequest) => data.results)
+          .catch( (e) => console.error( 'error', e ));
+      }))
+      .then(data => data)
+      .catch(err => console.log(err.message));
   }
-
-  fetchAllPeples(  numberOfPages ){
-
-    return Promise.all(  numberOfPages.map( item =>       this.fetchPr(  'https://swapi.co/api/people/?page=' + item )
-      .then( data => {
-        return data.results
-      })
-      .catch( () => '' )))
-      .then(data => data  )
-
-      .catch(function(err) {
-        console.log(err.message); // some coding error in handling happened
-      });
-
-  }
-
-
 }
 
 
