@@ -18,6 +18,7 @@ export interface Member {
   edited: string;
   url: string;
   homeWorldName: string;
+  neighbors?: Array;
 };
 
 export interface PeopleRequest {

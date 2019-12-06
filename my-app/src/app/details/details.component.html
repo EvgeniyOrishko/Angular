@@ -1,1 +1,19 @@
-<p>details works!</p>
+<div>
+
+
+  <div>
+
+    <h1>{{ detailInfo.name }}</h1>
+
+  </div>
+
+  <div *ngFor=" let neighbor of detailInfo.neighbors " >
+
+
+    <div (click)="onNeighborClick(neighbor.url)"> {{ neighbor.name }} </div>
+
+
+  </div>
+
+
+</div>
