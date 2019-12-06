@@ -34,7 +34,7 @@ export class DataService {
     peoples.forEach( (person: Member) => this.peoples[person.url] = person )
   }
 
-  getDetailInfo( id: string ){
+  getDetailInfo( id: string ) {
     const person = this.peoples[id];
     const planet = this.planets[ person.homeworld ];
     person.neighbors = planet.residents.map( (item: string) => this.peoples[item] );

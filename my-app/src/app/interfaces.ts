@@ -46,10 +46,10 @@ export interface Planet {
 }
 
 
-export interface PlanetRequest {
+export interface RequestResponse {
   count: string;
   next: string;
   previous: string;
-  results: Planet[];
+  results: Planet[] | Member[];
 }
 

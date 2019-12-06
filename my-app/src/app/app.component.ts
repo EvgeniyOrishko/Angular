@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
     this.apiService.fetchAllByParams( this.planetListRequest, 'planets' ).then( (data) =>  {
       const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
       this.dataService.updatePlanets( list );
-      this.dataService.setPlanetNameToPeopleList()
+      this.dataService.setPlanetNameToPeopleList();
       this.getAllPeoples();
     });
   }
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
   getAllPeoples() {
     this.apiService.fetchAllByParams( this.peopleListRequest, 'people' ).then( data =>  {
       const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
-      this.dataService.setPlanetNameToPeopleList(list)
+      this.dataService.setPlanetNameToPeopleList(list);
       this.dataService.updatePeoples( list );
       this.dataService.updatePeopleSource(list);
     });
