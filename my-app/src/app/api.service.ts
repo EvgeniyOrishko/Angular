@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {PlanetRequest} from './interfaces';
+import {Planet, RequestResponse} from './interfaces';
 
 @Injectable()
 
@@ -15,7 +15,7 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/${path}`);
   }
 
-  public fetchPr( path: string ) {
+  fetchPr( path: string ) {
     return this.http
       .get(path)
       .toPromise()
@@ -27,12 +27,11 @@ export class ApiService {
     return Promise.all(
       list.map( page => {
         return this.fetchPr( `${this.apiUrl}/${path}/?page=${page}`)
-          .then( (data: PlanetRequest) => data.results)
+        // @ts-ignore
+          .then( (data: RequestResponse) => data.results)
           .catch( (e) => console.error( 'error', e ));
       }))
       .then(data => data)
       .catch(err => console.log(err.message));
   }
 }
-
-

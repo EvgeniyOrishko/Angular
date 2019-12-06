@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ApiService} from '../api.service';
 import {DataService} from '../data.service';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import {DataService} from '../data.service';
 
 export class HomeComponent implements OnInit {
 
-  constructor( private apiService: ApiService, private dataService: DataService) {}
+  constructor( private dataService: DataService,  private router: Router) {}
 
   searchParam = '';
   filterParam = '';
@@ -43,5 +44,10 @@ export class HomeComponent implements OnInit {
         : data[param] === e.value
     };
     this.dataSource.filter = e.value;
+  }
+
+  showDetailInfo( id: string ) {
+    this.router.navigate(['/details']);
+    this.dataService.getDetailInfo(id);
   }
 }
