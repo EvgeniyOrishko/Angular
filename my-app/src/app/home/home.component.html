@@ -5,7 +5,7 @@
   <div class="filters">
     <mat-form-field>
       <mat-label>Select </mat-label>
-      <mat-select [(value)]="filterParams.sex" (selectionChange)="filterTable('gender', $event)">
+      <mat-select [(value)]="filterParam" (selectionChange)="filterTable('gender', $event)">
         <mat-option>All</mat-option>
         <mat-option value="male">Male</mat-option>
         <mat-option value="female">Female</mat-option>
@@ -15,7 +15,14 @@
 
 
 
-
+    <mat-form-field >
+      <mat-icon matPrefix>Search</mat-icon>
+      <input matInput type="search"
+             [value]="searchParam"
+             placeholder="search here"
+             class="search-input"
+             (keyup)="searchMember( $event )" />
+    </mat-form-field>
 
 
   </div>

@@ -16,20 +16,13 @@ export class HomeComponent implements OnInit {
   constructor( private apiService: ApiService) {}
 
   members: Member[] = [];
-  filterParams: {
-    sex: '';
-  } = {
-    sex: ''
-  };
-
+  searchParam = '';
+  filterParam = '';
   membersCount: number;
   membersInResult: number;
   planets: { [key: string]: Planet | boolean } = {};
-
-
   displayedColumns: string[] = ['url', 'name', 'gender', 'birth_year', 'homeworld'];
   dataSource = new MatTableDataSource(this.members);
-
 
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
@@ -45,31 +38,22 @@ export class HomeComponent implements OnInit {
       });
   }
 
-
-
-
-  filterTable( param, e: Event ) {
-
-
-      const filterSS = ( data ) => {
-
-        return e.value === 'other'
-          ? !['male', 'female'].includes(data[param])
-          : data.gender === e.value
-
-      }
-
-
-      console.error( 'e', e );
-
-
-
-    this.dataSource.filterPredicate = (data: Element, filter: string) => filterSS( data );
-    this.dataSource.filter = e.value;
-
-
+  searchMember(e: Event) {
+    this.filterParam = '';
+    this.searchParam = e.target.value;
+    this.dataSource.filterPredicate = (data: Element, filter: string) => data.name.toLowerCase().includes( filter );
+    this.dataSource.filter = e.target.value.toLowerCase().trim();
   }
 
+  filterTable( param, e: Event ) {
+    this.searchParam = '';
+    this.dataSource.filterPredicate = (data: Element, filter: string) => {
+      return filter === 'other'
+        ? !['male', 'female'].includes(data[param])
+        : data[param] === e.value
+    };
+    this.dataSource.filter = e.value;
+  }
 
   calculateAmount( count, inResult ) {
     const pages = Math.ceil(count / inResult);
@@ -98,16 +82,4 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }
