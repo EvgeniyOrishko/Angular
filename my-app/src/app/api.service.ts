@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Planet, RequestResponse} from './interfaces';
+import {RequestResponse} from './interfaces';
 
 @Injectable()
 

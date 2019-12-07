@@ -12,22 +12,22 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   constructor( private dataService: DataService ) { }
 
-  detailInfo: Member = {};
+  detailInfo: Member;
   subscription: Subscription;
 
   ngOnInit() {
-    this.subscription = this.dataService.details.subscribe( data =>  this.detailInfo = data );
+    this.subscription = this.dataService.details.subscribe( (data: Member) =>  this.detailInfo = data );
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  onNeighborClick( id:string ){
+  onNeighborClick( id: string ) {
     this.dataService.getDetailInfo(id);
   }
 
-  generateLetters(name: string){
+  generateLetters(name: string) {
      return name && name.match(/\b(\w)/g).join('');
   }
 
