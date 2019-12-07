@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {DataService} from '../data.service';
 import {Router} from '@angular/router';
-
+import { Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor( private dataService: DataService,  private router: Router) {}
 
@@ -19,14 +19,22 @@ export class HomeComponent implements OnInit {
   filterParam = '';
   displayedColumns: string[] = ['url', 'name', 'gender', 'birth_year', 'homeworld'];
   dataSource = new MatTableDataSource([]);
-
+  subscription: Subscription;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit() {
-    this.dataService.peopleList.subscribe( data => {
+    this.subscription = this.dataService.peopleList.subscribe( data => {
       this.dataSource.data = [...this.dataSource.data, ...data];
       this.dataSource.sort = this.sort;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   searchMember(e: Event) {

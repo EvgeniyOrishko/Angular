@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import {PeopleRequest, Planet, PlanetRequest} from './interfaces';
+import {PeopleRequest} from './interfaces';
 import {ApiService} from './api.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       .subscribe((data: PeopleRequest) => {
         this.peopleListRequest = AppComponent.calculateAmount( Number(data.count), data.results.length );
         this.dataService.updatePeopleSource(data.results);
-        this.dataService.updatePeoples(data.results);
+        this.dataService.updatePeople(data.results);
       });
 
      this.apiService.fetchByUrl('planets/')
@@ -45,15 +45,15 @@ export class AppComponent implements OnInit {
       const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
       this.dataService.updatePlanets( list );
       this.dataService.setPlanetNameToPeopleList();
-      this.getAllPeoples();
+      this.getAllPeople();
     });
   }
 
-  getAllPeoples() {
+  getAllPeople() {
     this.apiService.fetchAllByParams( this.peopleListRequest, 'people' ).then( data =>  {
       const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
       this.dataService.setPlanetNameToPeopleList(list);
-      this.dataService.updatePeoples( list );
+      this.dataService.updatePeople( list );
       this.dataService.updatePeopleSource(list);
     });
   }
