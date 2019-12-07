@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {DataService} from '../data.service';
 import {Router} from '@angular/router';
 import { Subscription} from 'rxjs';
+import {Member} from '../interfaces';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.subscription = this.dataService.peopleList.subscribe( data => {
+    this.subscription = this.dataService.peopleList.subscribe( (data: Member[]) => {
       this.dataSource.data = [...this.dataSource.data, ...data];
       this.dataSource.sort = this.sort;
     });
@@ -38,18 +39,19 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   searchMember(e: Event) {
+    const target = e.target as HTMLInputElement;
     this.filterParam = '';
-    this.searchParam = e.target.value;
-    this.dataSource.filterPredicate = (data: Element, filter: string) => data.name.toLowerCase().includes( filter );
-    this.dataSource.filter = e.target.value.toLowerCase().trim();
+    this.searchParam = target.value;
+    this.dataSource.filterPredicate = (data: Member, filter: string) => data.name.toLowerCase().includes( filter );
+    this.dataSource.filter = target.value.toLowerCase().trim();
   }
 
-  filterTable( param, e: Event ) {
+  filterTable( param, e: HTMLSelectElement ) {
     this.searchParam = '';
-    this.dataSource.filterPredicate = (data: Element, filter: string) => {
+    this.dataSource.filterPredicate = (data: Member, filter: string) => {
       return filter === 'other'
         ? !['male', 'female'].includes(data[param])
-        : data[param] === e.value
+        : data[param] === e.value;
     };
     this.dataSource.filter = e.value;
   }

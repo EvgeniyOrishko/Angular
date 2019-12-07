@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import {PeopleRequest} from './interfaces';
+import {Member, PeopleRequest, RequestResponse} from './interfaces';
 import {ApiService} from './api.service';
 
 @Component({
@@ -26,14 +26,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
      this.apiService.fetchByUrl('people')
-      .subscribe((data: PeopleRequest) => {
+      .subscribe((data: RequestResponse) => {
         this.peopleListRequest = AppComponent.calculateAmount( Number(data.count), data.results.length );
         this.dataService.updatePeopleSource(data.results);
         this.dataService.updatePeople(data.results);
       });
 
      this.apiService.fetchByUrl('planets/')
-      .subscribe((data: PlanetRequest) => {
+      .subscribe((data: RequestResponse) => {
         this.planetListRequest = AppComponent.calculateAmount( Number(data.count), data.results.length );
         this.dataService.updatePlanets(data.results);
         this.getAllPlanets();
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   getAllPlanets() {
-    this.apiService.fetchAllByParams( this.planetListRequest, 'planets' ).then( (data) =>  {
+    this.apiService.fetchAllByParams( this.planetListRequest, 'planets' ).then( (data: any) =>  {
       const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
       this.dataService.updatePlanets( list );
       this.dataService.setPlanetNameToPeopleList();
@@ -50,8 +50,8 @@ export class AppComponent implements OnInit {
   }
 
   getAllPeople() {
-    this.apiService.fetchAllByParams( this.peopleListRequest, 'people' ).then( data =>  {
-      const list = data.reduce( (acc, val) => [ ...acc, ...val ]);
+    this.apiService.fetchAllByParams( this.peopleListRequest, 'people' ).then( (data: any)  => {
+      const list = data.reduce( (acc, val) => acc.concat(val));
       this.dataService.setPlanetNameToPeopleList(list);
       this.dataService.updatePeople( list );
       this.dataService.updatePeopleSource(list);

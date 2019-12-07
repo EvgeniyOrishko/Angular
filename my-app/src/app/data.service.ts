@@ -26,7 +26,7 @@ export class DataService {
   }
 
   setPlanetNameToPeopleList( list = Object.values(this.people) ) {
-   return list.forEach( (person: Member) => person.homeWorldName = this.planets[person.homeworld || {} ].name );
+   return list.forEach( (person: Member) => person.homeWorldName = this.planets[ person.homeworld] && this.planets[ person.homeworld].name );
   }
 
   updatePeople(peoples: Member[]): void {
