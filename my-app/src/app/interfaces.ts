@@ -16,8 +16,8 @@ export interface Member {
   edited: string;
   url: string;
   homeWorldName: string;
-  neighbors?: Array;
-};
+  neighbors?: Member[] | 0;
+}
 
 export interface PeopleRequest {
   count: string;
@@ -48,6 +48,6 @@ export interface RequestResponse {
   count: string;
   next: string;
   previous: string;
-  results: Planet[] | Member[];
+  results: [];
 }
 
