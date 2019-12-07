@@ -1,0 +1,82 @@
+@import "../scroll";
+
+.container {
+  position: relative;
+  z-index: 1;
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 600px;
+  height: 500px;
+  margin-bottom: 50px;
+  background-color: #252525;
+  color: #dbdbdb;
+  .avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    background: black;
+    border-radius: 50%;
+    font-size: 36px;
+    font-weight: bold;
+    color: #ee3348;
+    margin-right: 30px;
+    &.small{
+      width: 30px;
+      height: 30px;
+      font-size: 12px;
+      margin-right: 10px;
+    }
+  }
+
+  .title{
+    display: flex;
+    align-items: center;
+  }
+
+  .info{
+    margin-left: 130px;
+    .circle{
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ee3348;
+    }
+  }
+
+  .neighbor-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    height: 200px;
+    overflow-y: scroll;
+    @include scroll;
+    .neighbor{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 200px;
+      padding: 5px 0;
+      cursor: pointer;
+      &:hover{
+        color: #ee3348;
+      }
+    }
+  }
+
+  .link-to-main{
+    color: #fff;
+    text-decoration: none;
+    margin-top: 10px;
+    &:hover{
+      color: #ee3348;
+    }
+  }
+
+}

@@ -1,1 +1,32 @@
-<p>details works!</p>
+<div class="container">
+  <div class="wrapper-info">
+    <div class="title">
+      <div class="avatar big">
+        {{ generateLetters(detailInfo.name) }}
+     </div>
+      <h2> {{detailInfo.name}} </h2>
+    </div>
+
+    <div class="info">
+      <div> <span class="circle"></span>  Mass: {{detailInfo.mass}},  Height: {{detailInfo.height}} </div>
+      <div> <span class="circle"></span> Birth day: {{detailInfo.birth_year}},  Eye color: {{detailInfo.eye_color}}  </div>
+      <div> <span class="circle"></span> Hair color: {{detailInfo.hair_color}},    Planet: {{detailInfo.homeWorldName}}</div>
+    </div>
+  </div>
+
+  <h2 *ngIf="detailInfo.neighbors.length">Neighbors</h2>
+  <div class="neighbor-container">
+    <div *ngFor=" let neighbor of detailInfo.neighbors " (click)="onNeighborClick(neighbor.url)" class="neighbor">
+        <div class="avatar small">
+          {{ generateLetters(neighbor.name) }}
+        </div>
+        <span> {{neighbor.name}} </span>
+    </div>
+  </div>
+
+
+  <a [routerLink]="['/']" class="link-to-main">
+    Go to list
+  </a>
+
+</div>

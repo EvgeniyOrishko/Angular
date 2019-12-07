@@ -1,0 +1,72 @@
+@import "../scroll";
+
+.container {
+  position: relative;
+  z-index: 1;
+  margin-top: 100px;
+  .filters{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #eaeaea;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+
+  .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 900px;
+    height: 500px;
+    margin-bottom: 50px;
+    .table_container{
+      overflow-y: scroll;
+      @include scroll;
+      width: 900px;
+      height: 500px;
+      transition: all 1s;
+      th{
+        background: #eaeaea;
+        color: #000;
+      }
+      tr {
+        background: #252525;
+        cursor: pointer;
+        td{
+          color: #eaeaea;
+          border-bottom: 1px solid #868686;
+          &.cdk-column-url span{
+            display: block;
+            border-radius: 50%;
+          }
+        }
+        .number{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+        &:hover {
+          opacity: 0.8;
+          .number{
+            background: #cbcbcb;
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+  table {
+    width: 100%;
+    td, th{
+      width: 24%;
+      &:first-child{
+        width: 4%;
+        padding: 0 10px;
+      }
+    }
+  }
+}
