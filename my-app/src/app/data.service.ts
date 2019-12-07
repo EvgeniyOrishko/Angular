@@ -4,18 +4,17 @@ import {Member, Planet} from './interfaces';
 
 @Injectable()
 export class DataService {
-  peoples: { [key: string]: Member } = {};
+  people: { [key: string]: Member } = {};
   planets: { [key: string]: Planet } = {};
-  detailInfo: Member = {};
 
-  private detailInfoSource = new BehaviorSubject(this.detailInfo);
+  private detailInfoSource = new BehaviorSubject({});
   details = this.detailInfoSource.asObservable();
 
   private peopleSource = new BehaviorSubject([]);
   peopleList = this.peopleSource.asObservable();
 
-  updatePeopleSource(peoples: Member[]) {
-    this.peopleSource.next(peoples);
+  updatePeopleSource(people: Member[]) {
+    this.peopleSource.next(people);
   }
 
   updateDetailInfoSource(details: Member) {
@@ -26,18 +25,18 @@ export class DataService {
     planets.forEach( (planet: Planet) => this.planets[ planet.url ] = planet );
   }
 
-  setPlanetNameToPeopleList( list = Object.values(this.peoples) ) {
+  setPlanetNameToPeopleList( list = Object.values(this.people) ) {
    return list.forEach( (person: Member) => person.homeWorldName = this.planets[person.homeworld || {} ].name );
   }
 
-  updatePeoples(peoples: Member[]): void {
-    peoples.forEach( (person: Member) => this.peoples[person.url] = person )
+  updatePeople(peoples: Member[]): void {
+    peoples.forEach( (person: Member) => this.people[person.url] = person )
   }
 
   getDetailInfo( id: string ) {
-    const person = this.peoples[id];
+    const person = this.people[id];
     const planet = this.planets[ person.homeworld ];
-    person.neighbors = planet.residents.map( (item: string) => this.peoples[item] );
+    person.neighbors = planet.residents.filter( item => item !== id ).map( (item: string) => this.people[item]);
     this.updateDetailInfoSource( person );
   }
 }

@@ -1,5 +1,3 @@
-import {Injectable} from '@angular/core';
-
 export interface Member {
   name: string;
   height: string;
