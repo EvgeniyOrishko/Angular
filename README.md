@@ -1,1 +1,1 @@
-# Angular
+# go to my-app folder
